@@ -1,0 +1,62 @@
+<script type="text/ng-template" id="customTemplate.html">
+    <a>
+        <img ng-if="match.model.profile_path" ng-src="https://image.tmdb.org/t/p/w185{{match.model.profile_path}}" width="32">
+        <img ng-if="!match.model.profile_path" ng-src="https://d3a8mw37cqal2z.cloudfront.net/assets/91c0541cff7ec4947514edd379f0ffd1/images/no-profile-w185.jpg" width="32">
+        <span>{{match.label}}</span>
+    </a>
+</script>
+
+<div class="input-group">
+    <span id="basic-addon1" class="input-group-addon">Actors</span>
+    <div id="scrollable-dropdown-menu">
+        <input type="text" ng-model="selectedActor"
+           typeahead="results as results.name for results in getActors($viewValue)"
+           typeahead-min-length="3" typeahead-template-url="customTemplate.html" typeahead-loading="loadingActors"
+           class="form-control"/>
+    </div>
+</div>
+<br/>
+<div class="input-group">
+    <span id="basic-addon1" class="input-group-addon">Genre</span>
+    <select ng-options="item.name for item in genres track by item.id" ng-model="genre"></select>
+</div>
+<br/>
+<div class="input-group">
+    <input type="button" class="btn btn-primary btn-lg" ng-click="searchFilms()" value="Search"/>
+</div>
+
+<br/><br/>
+<div ng-show="movies.length > 0">
+    <button class="btn btn-primary" type="button">
+        Found movies <span class="badge">({{total_results}})</span>
+    </button>
+    <br/>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead class="lead">
+            <tr>
+                <th>Title</th>
+                <th>Poster</th>
+                <th>Overview</th>
+                <th>Release date</th>
+                <th>Average vote</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="movie in movies">
+                <td class="lead">{{movie.original_title}}</td>
+                <td>
+                    <img ng-if="movie.poster_path" ng-src="https://image.tmdb.org/t/p/w185{{movie.poster_path}}">
+                    <img ng-if="!movie.poster_path" ng-src="https://d3a8mw37cqal2z.cloudfront.net/assets/f996aa2014d2ffddfda8463c479898a3/images/no-poster-w185.jpg">
+                </td>
+                <td>{{movie.overview}}</td>
+                <td>{{movie.release_date | date:'yyyy'}}</td>
+                <td>{{movie.vote_average}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="right">
+        <pagination total-items="total_results" items-per-page="20" ng-model="current_page" max-size="10" class="pagination-sm" boundary-links="true"></pagination>
+        <pre>Page: {{current_page}} / {{total_pages}}</pre>
+    </div>
+</div>
