@@ -1,0 +1,17 @@
+{
+  "name": "film-searcher",
+  "description": "Movie finder",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jaimeagudovillanueva/film-searcher",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "angular-loader": "~1.4.0",
+    "angular-mocks": "~1.4.0",
+    "html5-boilerplate": "~5.2.0",
+    "angular-bootstrap": "~0.13.0",
+    "bootstrap": "~3.3.5"
+  }
+}
